@@ -1,3 +1,5 @@
+//alpha 11/10
+
 $(document).ready(function () {
     
     //test support for local storage
