@@ -50,6 +50,8 @@ $(document).ready(function () {
             $('.loading').hide();
             //tooltips 
             $('[data-toggle="tooltip"]').tooltip();
+            //slide
+            $('.carousel').carousel('pause');
         })
         .fail(function () {
             //loading error
@@ -104,7 +106,7 @@ function load_data(item, index) {
     itemArr.unshift(chartData.id);
     localStorage.setItem("itemArr", JSON.stringify(itemArr));
     localStorage.setItem("currentId", chartData.id);
-
+    
 
     /////////////////////////
 
