@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     //add_chart(div,x,y1,y2,color);
-    $.getJSON("https://jsonbox.io/box_6ea38f2e6b70ac0868d6", function (data) {
+    $.getJSON("./bls.json", function (data) {
             data.forEach(load_data);
             //load_data(data[0],1);
         }).done(function () {
