@@ -420,17 +420,17 @@ function add_chart(data) {
 
             stickyTracking: true,
             color: data.color,
-            opacity: 0.5,
-            tooltip:{
-                valueSuffix: " /"+ data.unit,
-            }
+            opacity: 0.5
 
         }, {
             name: 'price',
             type: 'spline',
             yAxis: 0,
             data: data.price,
-            color: data.color
+            color: data.color,
+            tooltip:{
+                valueSuffix: " /"+ data.unit,
+            }
 
         }],
     }, function (chart) {
