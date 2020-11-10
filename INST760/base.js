@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     //add_chart(div,x,y1,y2,color);
-    $.getJSON("./bls.json", function (data) {
+    $.getJSON("https://qsl-sudo.github.io/INST760/bls.json", function (data) {
             data.forEach(load_data);
             //load_data(data[0],1);
         }).done(function () {
@@ -63,7 +63,7 @@ function done_load(){
             //slide
             //$('.carousel').carousel('pause');
             //mousewheel
-            $('#main').bind('mousewheel DOMMouseScroll', function(event){
+            $('#series').bind('mousewheel DOMMouseScroll', function(event){
                 if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
                     // scroll up
                     
@@ -310,7 +310,7 @@ function add_chart(data) {
             pointFormat: '{series.name}: <b>{point.y}</b><br/>',
             valueDecimals: 2,
             valuePrefix: '$',
-            valueSuffix: ' USD',
+            //valueSuffix: ' USD',
             followPointer: true,
             snap: 5 / 10
 
@@ -420,7 +420,10 @@ function add_chart(data) {
 
             stickyTracking: true,
             color: data.color,
-            opacity: 0.5
+            opacity: 0.5,
+            tooltip:{
+                valueSuffix: " /"+ data.unit,
+            }
 
         }, {
             name: 'price',
