@@ -24,7 +24,7 @@ $(document).ready(function () {
     $('#houseHoldSizeVal').val(household);
 
     //carousel setting
-    $('.carousel').carousel('pause').on('slid.bs.carousel', function () {
+    $('.carousel').on('slid.bs.carousel', function () {
         click_scroll();
     })
 
@@ -41,6 +41,14 @@ $(document).ready(function () {
             data.forEach(load_data);
             //load_data(data[0],1);
         }).done(function () {
+            done_load();
+        })
+        .fail(function () {
+            //loading error
+        });
+});
+
+function done_load(){
             //update current
             $('#addBtn,#main').show();
             click_btn(localStorage.getItem("currentId"));
@@ -51,15 +59,20 @@ $(document).ready(function () {
             //tooltips 
             $('[data-toggle="tooltip"]').tooltip();
             //slide
-            $('.carousel').carousel('pause');
-        })
-        .fail(function () {
-            //loading error
-        });
-
-
-
-});
+            //$('.carousel').carousel('pause');
+            //mousewheel
+            $('#series').bind('mousewheel DOMMouseScroll', function(event){
+                if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+                    // scroll up
+                    
+                    $('.carousel').carousel('prev');
+                }
+                else {
+                    // scroll down
+                    $('.carousel').carousel('next');
+                }
+            });
+}
 
 function load_data(item, index) {
 
