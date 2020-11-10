@@ -312,7 +312,10 @@ function add_chart(data) {
             valuePrefix: '$',
             //valueSuffix: ' USD',
             followPointer: true,
-            snap: 5 / 10
+            snap: 5 / 10,
+            style:{
+                fontSize:"16px"
+            }
 
         },
         plotOptions: {
