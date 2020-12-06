@@ -2,6 +2,16 @@
 
 $(document).ready(function () {
 
+
+   // <meta name="twitter:card" content="summary_large_image">
+   // <meta name="twitter:site" content="@_qsl">
+   // <meta name="twitter:title" content="Top 10 Things Ever">
+   // <meta name="twitter:description" content="Up than 200 characters.">
+   // <meta name="twitter:creator" content="@_qsl">
+   // <meta name="twitter:image" content="https://undark.org/wp-content/uploads/2020/02/GettyImages-1199242002-1-scaled.jpg">
+         
+    $("meta[name='twitter:image']").attr('content', 'https://undark.org/wp-content/uploads/2020/02/GettyImages-1199242002-1-scaled.jpg');
+
     //test support for local storage
     if (typeof (Storage) !== "undefined") {} else {
         $('#warning').modal('show');
