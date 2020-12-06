@@ -20,15 +20,15 @@
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link href="./style.css" rel="stylesheet">
-    <script src="./pSBC.js"></script>
+    <link href="./style/style.css" rel="stylesheet">
+    <script src="./js/pSBC.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/annotations.js"></script>
     <script src="https://code.highcharts.com/modules/xrange.js"></script>
     <script src="https://code.highcharts.com/modules/draggable-points.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
+    <script src="./js/html2canvas.min.js"></script>
+    <script src="./js/Canvas2image.js"></script>
 
     <title>Price and spending</title>
 </head>
@@ -39,10 +39,18 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg" id="nav">
                 <h3>Price and Spending</h3>&nbsp&nbsp<span class="badge badge-pill badge-primary">Beta</span>
+                <ul class="navbar-nav ml-auto">
+                    <a href="http://www.twitter.com/intent/tweet?url=https://qsl-sudo.github.io/INST760/index.html" target='_blank'><svg id="twitter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="rgba(109, 117, 125, 0.40)"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-.139 9.237c.209 4.617-3.234 9.765-9.33 9.765-1.854 0-3.579-.543-5.032-1.475 1.742.205 3.48-.278 4.86-1.359-1.437-.027-2.649-.976-3.066-2.28.515.098 1.021.069 1.482-.056-1.579-.317-2.668-1.739-2.633-3.26.442.246.949.394 1.486.411-1.461-.977-1.875-2.907-1.016-4.383 1.619 1.986 4.038 3.293 6.766 3.43-.479-2.053 1.08-4.03 3.199-4.03.943 0 1.797.398 2.395 1.037.748-.147 1.451-.42 2.086-.796-.246.767-.766 1.41-1.443 1.816.664-.08 1.297-.256 1.885-.517-.439.656-.996 1.234-1.639 1.697z"/></svg>
+                    </a>
+
+                    &nbsp&nbsp<a href="#"><svg id="download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="rgba(109, 117, 125, 0.40)">
+                        <path d="M15.004 3h2.996v5h-2.996v-5zm8.996 1v20h-24v-24h20l4 4zm-19 5h14v-7h-14v7zm16 4h-18v9h18v-9zm-2 2h-14v1h14v-1zm0 2h-14v1h14v-1zm0 2h-14v1h14v-1z"/></svg></a>
+                    
+                </ul>
             </nav>
         </div>
     </footer>
-
+     
     <main role="main" class="container">
 
 
@@ -101,7 +109,7 @@
                             </div>Spending
                         </h5>
                         -->
-                            <div class="row justify-content-lg-center" id="spendingctrl">
+                            <div class="row justify-content-lg-center" id="spendingctrl" style="display:none">
                                 <div class="col col-lg-4 spendingctrl ">
                                     <div class="col-10 input-group input-group mb-3">
                                         <div class="input-group-prepend">
@@ -244,6 +252,6 @@
         </div>
     </footer>
 </body>
-<script src="./base.js"></script>
+<script src="./js/base.js"></script>
 
 </html>

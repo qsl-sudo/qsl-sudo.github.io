@@ -2,16 +2,6 @@
 
 $(document).ready(function () {
 
-
-   // <meta name="twitter:card" content="summary_large_image">
-   // <meta name="twitter:site" content="@_qsl">
-   // <meta name="twitter:title" content="Top 10 Things Ever">
-   // <meta name="twitter:description" content="Up than 200 characters.">
-   // <meta name="twitter:creator" content="@_qsl">
-   // <meta name="twitter:image" content="https://undark.org/wp-content/uploads/2020/02/GettyImages-1199242002-1-scaled.jpg">
-         
-    $("meta[name='twitter:image']").attr('content', 'https://undark.org/wp-content/uploads/2020/02/GettyImages-1199242002-1-scaled.jpg');
-
     //test support for local storage
     if (typeof (Storage) !== "undefined") {} else {
         $('#warning').modal('show');
@@ -49,7 +39,7 @@ $(document).ready(function () {
     });
 
     //add_chart(div,x,y1,y2,color);
-    $.getJSON("https://qsl-sudo.github.io/INST760/bls.json", function (data) {
+    $.getJSON("https://qsl-sudo.github.io/INST760/data/bls.json", function (data) {
             data.forEach(load_data);
             //load_data(data[0],1);
         }).done(function () {
@@ -70,6 +60,7 @@ function done_load() {
     $('.loading').hide();
     //tooltips 
     $('[data-toggle="tooltip"]').tooltip();
+    $('#download').click(download);
     load_total_date();
     //slide
     //$('.carousel').carousel('pause');
@@ -156,7 +147,7 @@ function load_total_date() {
         ],
         //price: y1,
         spending: total_series,
-        sAxis: [Math.min(...total_series) * 0.5, Math.max(...total_series) * 1.5],
+        sAxis: [Math.min(...total_series) * 0.9, Math.max(...total_series) * 1.1],
         color: colorArr[parseInt(colorArr.length * Math.random())],
         mon1: [mon1 - 0.5, mon1 + 0.5],
         mon2: [mon2 - 0.5, mon2 + 0.5]
@@ -168,23 +159,6 @@ function load_total_date() {
     localStorage.setItem('total', JSON.stringify(total_data));
 }
  
-
-function model_switch(multi) {
-    if (multi == 1) {
-        $('.loading').show();
-        $('#mutlibtn').hide();
-        $('#singlebtn').show();
-        $('button[id^=btn_],#addBtn,#main').hide();
-        $('.loading').hide();
-    } else {
-        $('.loading').show();
-        $('#mutlibtn').show();
-        $('#singlebtn').hide();
-        $('button[id^=btn_],#addBtn,#main').show();
-        $('.loading').hide();
-    }
-}
-
 function update_series(id) {
 
     if (id != "total") {
@@ -232,8 +206,8 @@ function update_series(id) {
         });
         data.spending=total_series;
         $('#slide_' + id).highcharts().axes[1].update({
-            min: Math.min(...data.spending) * 0.5,
-            max: Math.max(...data.spending) * 1.5
+            min: Math.min(...data.spending) * 0.9,
+            max: Math.max(...data.spending) * 1.1
         }, true);
         $('#slide_' + id).highcharts().series[0].update({
             data: data.spending
@@ -898,6 +872,19 @@ function add_total_chart(data) {
             translateX = 0;
         });
     });
+
+
+
+}
+
+
+function download(){
+    $('.loading').show({complete:function(){
+        html2canvas(document.querySelector("div[id^=slide_].carousel-item.active")).then(canvas => {
+            Canvas2Image.saveAsPNG(canvas, 970, 500);
+            $('.loading').hide();
+        }); 
+    }});
 
 
 
