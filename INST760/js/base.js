@@ -137,7 +137,7 @@ function load_total_date() {
 
     total_data = {
         id: "total",
-        name: "Total",
+        name: "▪ Total",
         //desc: item.desc,
         //unit: item.unit,
         //consumption: item.consumption,
