@@ -22,6 +22,7 @@ $(document).ready(function () {
     ];
     colorArr = ["#00876c", "#3d9c73", "#63b179", "#88c580", "#aed987", "#d6ec91", "#fee17e", "#fcc267", "#f7a258", "#ef8250", "#e4604e", "#d43d51", "#004c6d", "#255e7e", "#3d708f", "#5383a1", "#6996b3", "#c1e7ff"];
 
+    cacheArr = [];
     itemArr = [];
     $('#houseHoldSizeVal').val(household);
 
@@ -40,15 +41,71 @@ $(document).ready(function () {
 
     //add_chart(div,x,y1,y2,color);
     $.getJSON("https://qsl-sudo.github.io/INST760/data/bls.json", function (data) {
-            data.forEach(load_data);
-            //load_data(data[0],1);
+
+            addData = new bootstrap.Modal(document.getElementById('selectData'), {
+                keyboard: false,
+                backdrop: 'static',
+                focus: true
+            });
+            addData.show();
+            //data.forEach(load_data);
+            data.forEach(function (item) {
+                cacheArr.push(item);
+                $("#selectDataItem").prepend('<button type="button" class="btn btn-outline-secondary btn-sm itembtn" id="select_' + item.id + '">' + item.name + '</button>');
+                $("#select_" + item.id).click(function () {
+                    $('#select_' + item.id).toggleClass("btn-secondary").toggleClass("btn-outline-secondary");
+                    console.log(1);
+                });
+            })
+            $("#selectDataItem").prepend('<button type="button" class="btn btn-outline-success btn-sm itembtn" id="selectAll">▪ Select All</button>');
+            $("#selectDataItem").prepend('<button type="button" class="btn btn-outline-success btn-sm itembtn" id="removeAll" style="display:none">▪ Select All</button>');
+            $("#selectAll").click(function () {
+                $('[id^=select_]').each(function () {
+                    $(this).addClass("btn-secondary").removeClass("btn-outline-secondary");
+                });
+                $("#selectAll").toggle();
+                $("#removeAll").toggle();
+            });
+            $("#removeAll").click(function () {
+                $('[id^=select_]').each(function () {
+                    $(this).removeClass("btn-secondary").addClass("btn-outline-secondary");
+                });
+                $("#selectAll").toggle();
+                $("#removeAll").toggle();
+            });
+            $("#selectContinue").click(function () {
+                select_data()
+            });
+
         }).done(function () {
-            done_load();
+            //done_load();
         })
         .fail(function () {
             //loading error
         });
 });
+
+
+function select_data() {
+    selectArr = []
+    $('[id^=select_]').each(function () {
+        if ($(this).hasClass("btn-secondary")) {
+            selectArr.push($(this).attr('id').split('_')[1]);
+        }
+    });
+    if (selectArr.length > 0) {
+        $("#selectData").on("hidden.bs.modal", function () {
+            cacheArr.forEach(function (item) {
+                if (selectArr.includes(item.id)) {
+                    load_data(item);
+                }
+            });
+            done_load();
+        });
+        addData.hide();
+
+    };
+}
 
 function done_load() {
     //update current
@@ -158,12 +215,12 @@ function load_total_date() {
     add_total_chart(total_data);
     localStorage.setItem('total', JSON.stringify(total_data));
 }
- 
+
 function update_series(id) {
 
     if (id != "total") {
-        
-        if (!$('#spendingctrl').is(':visible')){
+
+        if (!$('#spendingctrl').is(':visible')) {
             $('#spendingctrl').slideDown();
         }
         data = JSON.parse(localStorage.getItem(id));
@@ -187,7 +244,7 @@ function update_series(id) {
         localStorage.setItem(id, JSON.stringify(data));
     } else {
 
-        if ($('#spendingctrl').is(':visible')){
+        if ($('#spendingctrl').is(':visible')) {
             $('#spendingctrl').slideUp();
         }
 
@@ -204,7 +261,7 @@ function update_series(id) {
                 return num + JSON.parse(localStorage.getItem(value)).spending[idx];
             });
         });
-        data.spending=total_series;
+        data.spending = total_series;
         $('#slide_' + id).highcharts().axes[1].update({
             min: Math.min(...data.spending) * 0.9,
             max: Math.max(...data.spending) * 1.1
@@ -272,10 +329,10 @@ function update_panel(id) {
 
 function add_btn(data) {
     //add button
- 
-        btn = '<button type="button" class="btn btn-light btn-sm itembtn" id="btn_' + data.id + '" onclick=click_btn("' + data.id + '") >' + data.name + ' </button>';
-        $('#itembar').prepend(btn);
-    
+
+    btn = '<button type="button" class="btn btn-light btn-sm itembtn" id="btn_' + data.id + '" onclick=click_btn("' + data.id + '") >' + data.name + ' </button>';
+    $('#itembar').prepend(btn);
+
 }
 
 function add_slide(data) {
@@ -878,13 +935,15 @@ function add_total_chart(data) {
 }
 
 
-function download(){
-    $('.loading').show({complete:function(){
-        html2canvas(document.querySelector("div[id^=slide_].carousel-item.active")).then(canvas => {
-            Canvas2Image.saveAsPNG(canvas, 970, 500);
-            $('.loading').hide();
-        }); 
-    }});
+function download() {
+    $('.loading').show({
+        complete: function () {
+            html2canvas(document.querySelector("div[id^=slide_].carousel-item.active")).then(canvas => {
+                Canvas2Image.saveAsPNG(canvas, 970, 500);
+                $('.loading').hide();
+            });
+        }
+    });
 
 
 
